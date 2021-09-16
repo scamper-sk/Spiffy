@@ -8,18 +8,22 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <!--Import the functions you need from the SDKs you need-->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script> <!--numeral.js-->
+
+    <script src="./firebase.js"></script><!--if we put this line after script.js then it will give error of db undefined-->
+    <script src="./script.js"></script>
+    <script src="./header.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
         integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/"
         crossorigin="anonymous">
     </script>
-    
-    <!--firebase thing-->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
-    </script>    
-
 </head>
 <body>
     <!--whole page-->
@@ -28,7 +32,7 @@
         <div class="header h-16 bg-gray-900 flex items-center">
             <!--logo-->
             <div class="logo w-1/5 h-16 ml-10 ">
-                <img class="w-28 h-16 object-contain"   src="logo1.jpg" >
+                <img class="w-28 h-16 object-contain" src="logo1.jpg" alt="logo" >
             </div>
             <!--search-bar-->
             <input class="h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 rounded-l-xl px-3 text-white ml-6 focus:outline-none placeholder-white" id="search" type="text" placeholder="Search...">
@@ -53,7 +57,9 @@
                 <a href="cart.html">
                   <div class="cart-icon relative h-10 w-10 bg-yellow-500 flex items-center justify-center rounded-xl">
                     <!--show no.of items in cart-->
-                    <div class="cart-item-number absolute  -top-1  -right-1  h-4 w-4 bg-white rounded-full flex justify-center items-center text-gray-800 text-xs font-bold">1</div>
+                    <div class="cart-item-number absolute  -top-1  -right-1  h-4 w-4 bg-white rounded-full flex justify-center items-center text-gray-800 text-xs font-bold">
+                        <!--1-->
+                    </div>
                     <svg class="h-4 w-4 text-gray-600" xmlns="http://owww.w3.org/2000/svg" class="h-6 w-6" fill="none"   viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -69,6 +75,7 @@
         </div>
         <!--whole-main-screen-->
         <div class="main h-full flex">
+            <!--when small size make sidebar hidden and when medium size make it visible-->
             <div class="hidden md:block border-t-2 border-gray-700 main-sidebar w-1/5 bg-gray-900 p-6">
                 <!--sidebar-->
                 <div class="sidebar-categories">
@@ -189,93 +196,97 @@
                 </div>
                 <!--main-section hot deals-->
                 <div class="main-section-deals mt-5">
-                    <h1 class="text-2xl font-bold text-gray-700 mb-5 ">Hot Deals 🔥</h1>
-                    <div class="main-section-product grid grid-cols-4 md:gap-x-2">
-
-                        <!--images-->
-                        <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
-                            <img class="w-full h-full object-contain"src="camera.jpg" >
-                        </div> 
-                        <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
-                            <img class="w-full h-full object-contain"src="dresses.jpg" >
-                        </div>
-                        <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
-                            <img class="w-full h-full object-contain"src="chocolate.jpg" >
-                        </div> 
-                        <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
-                            <img class="w-full h-full object-contain"src="books.jpg" >
-                        </div>
-
-                        <!--product name-->
-                        <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
-                             <h3>Canon DSLR Camera</h3>
-                        </div>
-                        <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
-                             <h3>W Dresses</h3>
-                        </div>
-                        <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
-                            <h3>Dairy Milk Silk</h3>
-                        </div>
-                        <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
-                            <h3>Books</h3>
-                        </div>
-                       
-                        <!--product making-->
-                        <div class="product-make text-gray-600 text-sm">
-                            <h3>Canon</h3>
-                        </div>
-                        <div class="product-make text-gray-600 text-sm">
-                            <h3>W</h3>
-                        </div>
-                        <div class="product-make text-gray-600 text-sm">
-                            <h3>Cadbury</h3>
-                        </div>
-                        <div class="product-make text-gray-600 text-sm">
-                            <h3>Sen Publication</h3>
-                        </div>
-                        
-                        <!--rating-->
-                        <div class="product-rating text-yellow-300 font-bold my-1 ">
-                            ⭐⭐⭐⭐⭐4.5
-                        </div>
-                        <div class="product-rating text-yellow-300 font-bold my-1 ">
-                            ⭐⭐⭐⭐⭐3.8
-                        </div>
-                        <div class="product-rating text-yellow-300 font-bold my-1 ">
-                            ⭐⭐⭐⭐⭐4.0
-                        </div>
-                        <div class="product-rating text-yellow-300 font-bold my-1 ">
-                            ⭐⭐⭐⭐⭐3.9
-                        </div>
-                        
-                        <!--pricing-->
-                        <div class="product-price font-bold text-gray-700 ">
-                            ₹50,000
-                        </div> 
-                        <div class="product-price font-bold text-gray-700 ">
-                            ₹2000
-                        </div> 
-                        <div class="product-price font-bold text-gray-700 ">
-                            ₹1000
-                        </div> 
-                        <div class="product-price font-bold text-gray-700 ">
-                            ₹15000
-                        </div>   
-                        
-                        <!--Add to cart-->
-                        <div class="product-add-to-cart border-2 border-yellow-500 bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
-                             Add to cart
-                        </div> 
-                        <div class="product-add-to-cart border-2 border-yellow-500 bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
-                            Add to cart
-                        </div> 
-                        <div class="product-add-to-cart border-2 border-yellow-500 bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
-                        Add to cart
-                        </div> 
-                        <div class="product-add-to-cart  bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
-                        Add to cart
-                        </div>                     
-                        
+                    <h1 class="text-2xl font-bold text-gray-700 mb-5 ">
+                        Hot Deals 🔥
+                    </h1>
+                    <div class="main-section-products flex">
+                               <!--product 1-->
+                               <!--<div class="main-product mr-5"> 
+                                <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
+                                   <img class="w-full h-full object-contain"src="camera.jpg" alt="camera" >
+                                </div> 
+                                <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
+                                    <h3>Canon DSLR Camera</h3>
+                                </div>
+                                <div class="product-make text-gray-600 text-sm">
+                                    <h3>Canon</h3>
+                                </div>
+                                <div class="product-rating text-yellow-300 font-bold my-1 ">
+                                    ⭐⭐⭐⭐⭐4.5
+                                </div>
+                                <div class="product-price font-bold text-gray-700 ">
+                                    ₹50,000
+                                </div> 
+                                <div class="border-2 border-yellow-500 bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
+                                    Add to cart
+                                </div> 
+                            </div> -->
+                            
+                            <!--product 2-->
+                            <!--<div class="main-product mr-5">
+                                <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
+                                  <img class="w-full h-full object-contain"src="dresses.jpg" alt="dress"  >
+                                </div>
+                                <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
+                                    <h3>W Dresses</h3>
+                                </div>
+                                <div class="product-make text-gray-600 text-sm">
+                                    <h3>W</h3>
+                                </div>
+                                <div class="product-rating text-yellow-300 font-bold my-1 ">
+                                    ⭐⭐⭐⭐⭐3.8
+                                </div>
+                                <div class="product-price font-bold text-gray-700 ">
+                                    ₹2000
+                                </div> 
+                                <div class="border-2 border-yellow-500 bg-yellow-500 w-28 h-7  cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
+                                    Add to cart
+                                </div>
+                            </div>  -->
+    
+                            <!--product 3-->
+                           <!--<div class="main-product mr-5">
+                                <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
+                                    <img class="w-full h-full object-contain"src="chocolate.jpg" alt="chocolate"  >
+                                </div> 
+                                <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
+                                    <h3>Dairy Milk Silk</h3>
+                                </div>
+                                <div class="product-make text-gray-600 text-sm">
+                                    <h3>Cadbury</h3>
+                                </div>
+                                <div class="product-rating text-yellow-300 font-bold my-1 ">
+                                    ⭐⭐⭐⭐⭐4.0
+                                </div>
+                                <div class="product-price font-bold text-gray-700 ">
+                                    ₹1000
+                                </div>
+                                <div class="border-2 border-yellow-500 bg-yellow-500 w-28 h-7   cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
+                                    Add to cart
+                                </div>
+                            </div> --> 
+    
+                            <!--product 4-->
+                            <!--<div class="main-product mr-5">
+                                <div class="product-image w-48 h-52 bg-white rounded-lg p-4">
+                                  <img class="w-full h-full object-contain"src="books.jpg"alt="books"  >
+                                </div>
+                                <div class="product-name text-gray-700 font-bold mt-2 text-sm ">
+                                    <h3>Books</h3>
+                                </div>
+                                <div class="product-make text-gray-600 text-sm">
+                                    <h3>Sen Publication</h3>
+                                </div>
+                                <div class="product-rating text-yellow-300 font-bold my-1 ">
+                                    ⭐⭐⭐⭐⭐3.9
+                                </div>
+                                <div class="product-price font-bold text-gray-700 ">
+                                    ₹15000
+                                </div> 
+                                <div class="border-2 border-yellow-500 bg-yellow-500 w-28 h-7   cursor-pointer mt-2 flex items-center justify-center font-medium text-white hover:bg-yellow-600">
+                                    Add to cart
+                                </div>-->
+                            </div> 
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+
 const firebaseConfig = {
     apiKey: "AIzaSyA7JygDyDy268237DGvTXEtgygibMdoVBY",
     authDomain: "spiffy-15281.firebaseapp.com",
@@ -9,5 +10,12 @@ const firebaseConfig = {
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  //const app = initializeApp(firebaseConfig);
+  //const analytics = getAnalytics(app);
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+ //this will make variable db available to whole index.html or whole script .
+ //initialize an instance of cloud firestore
+  var db = firebase.firestore();
+
